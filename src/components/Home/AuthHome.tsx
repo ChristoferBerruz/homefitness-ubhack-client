@@ -4,34 +4,51 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
-
-import {apiURL} from 'backend/config';
+import { stringify } from 'querystring';
 
 
 function getWorkouts():IWorkout[]{
 
    return [{
-       videoSrc:"https://www.youtube.com/embed/PGJ43zaam_0"
+       id: "Y2eOW7XYWxc",
+       title: "20 MIN FULL BODY WORKOUT - Intense Version / No Equipment I Pamela Reif"
+   },
+   {
+       id: "ipNcdQAfo7Q",
+       title: "How to GET ABS at a HIGHER BODY FAT % | NO PLANKS | The Science of a Six Pack"
    }];
 }
 
 interface IWorkout{
-    videoSrc:string,
+    id:string,
+    title:string
+
 }
 
 const WorkoutCard:React.FC<{workout:IWorkout}> = ({workout}) => {
-
+    const videoSrc = "https://www.youtube.com/embed/"+ workout.id
     return(
-        <Card>
-            <iframe
-                className="workoutCard" 
-                width="560"
-                height="315"
-                src={workout.videoSrc}
-                frameBorder="0" allow="fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-
-            </iframe>
-        </Card>
+        <div className="video">
+        <Row>
+            <Col md={2}></Col>
+            <Col md={7}>
+                <Card>
+                    <Card.Header>{workout.title}</Card.Header>
+                        <Card.Body> 
+                            <iframe
+                                className="workoutCard" 
+                                width="560"
+                                height="315"
+                                src={videoSrc}
+                                frameBorder="0" allow="fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            >
+                            </iframe>
+                        </Card.Body>
+                </Card>
+            </Col>
+            <Col md={3}></Col>
+        </Row>
+        </div>
     )
 }
 
@@ -47,9 +64,9 @@ const AuthHome: React.FC = () => {
 
     },[]);
     return(
-        <Container>
-            {workoutData && workoutData.map(workout => <WorkoutCard key={workout.videoSrc} workout={workout} />)}
-        </Container>
+            <Container>
+                {workoutData && workoutData.map(workout => <WorkoutCard key={workout.id} workout={workout} />)}
+            </Container>
     )
 }
 
