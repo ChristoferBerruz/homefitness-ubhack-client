@@ -129,7 +129,7 @@ const AuthHome: React.FC = () => {
     return(
         <Container>
             <UserInputForWorkout setWorkoutData={setWorkoutData}/>
-            {workoutData && workoutData.map(workout => <WorkoutCard key={workout.videoSrc} workout={workout} />)}
+            {workoutData && workoutData.map(workout => <WorkoutCard key={workout.id} workout={workout} />)}
         </Container>
     )
 }

@@ -18,7 +18,6 @@ const Home:React.FC = () => {
                 :
                 <NoAuthHome />
             }
-            <Footer />
         </>
     )
 }
