@@ -1,15 +1,15 @@
 import React from 'react';
-import {useContext} from 'react';
 import {SignInWithGoogle, firestore} from 'firebaseinit';
 import Header from 'components/Shared/Header';
 import Footer from 'components/Shared/Footer';
-import {UserContext} from 'components/Providers/UserProvider';
 import firebase from "firebase/app";
 
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+
+import {useSession} from 'hooks/auth';
 
 // Attempts to add a user record into the database if it does not exist
 function addUserRecord({displayName, email, uid}:firebase.User){
@@ -33,7 +33,7 @@ function addUserRecord({displayName, email, uid}:firebase.User){
 
 const Login: React.FC = () => {
 
-    const user = useContext(UserContext);
+    const {user} = useSession();
     return(
         <>
             <Header />

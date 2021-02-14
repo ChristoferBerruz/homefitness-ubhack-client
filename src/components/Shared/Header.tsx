@@ -1,13 +1,13 @@
 import React from 'react';
-import {useContext} from 'react';
-import {UserContext} from 'components/Providers/UserProvider';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
+import {useSession} from 'hooks/auth';
+
 const Header:React.FC = () => {
 
-    const user = useContext(UserContext);
+    const {user} = useSession();
     return(
         <Navbar bg="light" expand="md">
             <Navbar.Brand href="/home">HomeFitness</Navbar.Brand>

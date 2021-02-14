@@ -1,11 +1,12 @@
 import React from 'react';
-import {useContext} from 'react';
 import {auth} from 'firebaseinit';
-import {UserContext} from 'components/Providers/UserProvider';
+
+import {useSession} from 'hooks/auth';
 
 const Logout:React.FC = () => {
 
-    const user = useContext(UserContext);
+    const {user} = useSession();
+    
     return user && (
         <button onClick={() => auth.signOut()} > Sign out</button>
     )
