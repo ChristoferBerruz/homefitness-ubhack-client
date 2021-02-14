@@ -29,7 +29,7 @@ function App() {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/home" component={Home} />
-            {!user && <Route path="/login" component={Login} />}
+            <Route path="/login" component={Login} />
             {user && <Route path="/logout" component={Logout} />}
             {user && <Route path="/profile" component={Profile} />}
             <Route render={() => <Redirect to="/home" />}/>
