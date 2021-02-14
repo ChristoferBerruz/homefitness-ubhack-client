@@ -5,6 +5,9 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+
 import Header from 'components/Shared/Header';
 import Footer from 'components/Shared/Footer';
 import {Redirect} from 'react-router-dom';
@@ -41,12 +44,51 @@ async function getProfileFromDB({uid}:firebase.User):Promise<IProfile | null>{
     
 }
 
+async function UpdateFavoriteYoutuber({uid}:firebase.User){
+
+}
+
 
 const EditPreferences: React.FC = () => {
-    return(
-        <Form></Form>
-    )
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    return (
+        <>
+            <Button variant="primary" onClick={handleShow}>
+                Edit preferences
+            </Button>
+
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                <Modal.Title>Edit preferences</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group controlId="favoriteYoutuber">
+                            <Form.Label>Favorite Youtuber</Form.Label>
+                            <Form.Control type="text" placeholder="Favorite Youtuber" />
+                            <Form.Text className="text-muted">
+                                Don't forget to save changes to apply them.
+                            </Form.Text>
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Close
+                </Button>
+                <Button variant="primary" onClick={handleClose}>
+                    Save Changes
+                </Button>
+                </Modal.Footer>
+            </Modal>
+        </>
+    );
 }
+
 const ProfileSummary: React.FC<{profile:IProfile}> = ({profile}) => {
     
     return(
@@ -57,8 +99,10 @@ const ProfileSummary: React.FC<{profile:IProfile}> = ({profile}) => {
                     <Card.Body>
                         <p>Username: {profile.username}</p>
                         <p>Email: {profile.email}</p>
-                        Favorite youtubers:
+                        Favorite youtuber:
                         {profile.preferences.favoriteYoutubers.reduce((prev, curvalue) => prev+curvalue)}
+
+                        <EditPreferences />
                     </Card.Body>
                 </Card>
             </Col>
