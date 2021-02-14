@@ -29,7 +29,7 @@ async function getProfileFromDB({uid}:firebase.User):Promise<IProfile | null>{
     const data = snapshot.data();
     if(data){
 
-        const preferences = data.preferences? data.preferences: {favoriteYoutubers: []};
+        const preferences = data.preferences? data.preferences: {favoriteYoutubers: ['']};
         return {
             username: data.displayName,
             email: data.email,
