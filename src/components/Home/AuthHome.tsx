@@ -12,7 +12,7 @@ import {apiURL} from 'backend/config';
 import axios, {AxiosResponse} from 'axios';
 
 
-function getWorkouts(jsonPayload: any):Promise<AxiosResponse<IWorkout[]>>{
+function getWorkouts(jsonPayload: any):Promise<AxiosResponse<IWorkout>>{
     return axios({
         method: "POST",
         url: `${apiURL}/video`,
@@ -20,7 +20,7 @@ function getWorkouts(jsonPayload: any):Promise<AxiosResponse<IWorkout[]>>{
     });
 }
 
-const UserInputForWorkout:React.FC<{setWorkoutData:Function}> = ({setWorkoutData}) => {
+const UserInputForWorkout:React.FC<{workoutData:IWorkout[]|null, setWorkoutData:Function}> = ({workoutData, setWorkoutData}) => {
 
     const [show, setShow] = useState(false);
     const [workoutType, setWorkoutType] = useState('abs');
@@ -34,7 +34,12 @@ const UserInputForWorkout:React.FC<{setWorkoutData:Function}> = ({setWorkoutData
         };
 
         getWorkouts(payload).then((response) => {
-            setWorkoutData(response.data);
+            if (workoutData){
+                setWorkoutData([response.data, ...workoutData]);
+            }else{
+                setWorkoutData([response.data]);
+            }
+           
         });
         
         setShow(false);
@@ -128,7 +133,7 @@ const AuthHome: React.FC = () => {
     
     return(
         <Container>
-            <UserInputForWorkout setWorkoutData={setWorkoutData}/>
+            <UserInputForWorkout workoutData={workoutData} setWorkoutData={setWorkoutData}/>
             {workoutData && workoutData.map(workout => <WorkoutCard key={workout.id} workout={workout} />)}
         </Container>
     )
