@@ -57,7 +57,7 @@ const EditPreferences: React.FC = () => {
 
     return (
         <>
-            <Button variant="primary" onClick={handleShow}>
+            <Button variant="primary" style={{marginTop:"20px"}} onClick={handleShow}>
                 Edit preferences
             </Button>
 
@@ -99,8 +99,7 @@ const ProfileSummary: React.FC<{profile:IProfile}> = ({profile}) => {
                     <Card.Body>
                         <p>Username: {profile.username}</p>
                         <p>Email: {profile.email}</p>
-                        Favorite youtuber:
-                        {profile.preferences.favoriteYoutubers.reduce((prev, curvalue) => prev+curvalue)}
+                        Favorite youtuber: {profile.preferences.favoriteYoutubers.reduce((prev, curvalue) => prev+curvalue)}
 
                         <EditPreferences />
                     </Card.Body>

@@ -46,7 +46,7 @@ const UserInputForWorkout:React.FC<{workoutData:IWorkout[]|null, setWorkoutData:
     };
     const handleShow = () => setShow(true);
     return(
-        <>
+        <Row>
         <Button variant="primary" onClick={handleShow}>
                 Get some workouts
             </Button>
@@ -90,7 +90,7 @@ const UserInputForWorkout:React.FC<{workoutData:IWorkout[]|null, setWorkoutData:
                 </Button>
                 </Modal.Footer>
             </Modal>
-        </>
+        </Row>
     )
 }
 interface IWorkout{
